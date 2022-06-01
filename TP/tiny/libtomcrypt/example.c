@@ -1,56 +1,49 @@
 #include <stdio.h>
 #include "tomcrypt_hash.h"
-int main(){
+int number = 0;
+//abc
+//a9 99 3e 36 47 6 81 6a ba 3e 25 71 78 50 c2 6c 9c d0 d8 9d
+//0 0 0 54 9f c4 c5 73 39 6b 88 c9 5d 88 5a 53 6b 22 a6 75
+int verdade(char *str, int i)
+{
+    if(i == number - 1){
+        return true;
+    }   else{
+        if( 0 == str[i]){
+            return true && verdade (str, i+1);
+        }   else{
+            return false && verdade (str, i+1);
+        }
+    }
+}
+
+
+int main(int argv, char **argc){
     unsigned char tmp[20];
     hash_state md;
+    char *msg;
+    char arg1[100], arg2[100];
+    char *buf, *p;
+    number = atoi(argc[1]);
+    msg = argc[2];
 
+   /* if ((buf = getenv("QUERY_STRING")) != NULL) {
+	    p = strchr(buf, '&');
+	    *p = '\0';              //anular o & dentro do string p -  para aproveitar no strcpy a seguir
+	    strcpy(arg1, buf);
+	    strcpy(arg2, p+1);
+	    number = atoi(arg1);
+        msg = arg2;
+    }
+    */
 
     {
         //simple example
-        char *msg="abc";
         sha1_init(&md);
         sha1_process(&md, (unsigned char *)msg, (unsigned long)strlen(msg));
-        sha1_done(&md, tmp);
         for (int i=0;i<20;i++)
             printf("%x ", tmp[i]);
         printf("\n");
-    }
-
-    {
-        //Run SHA1 Tests
-        static const struct {
-        char *msg;
-        unsigned char hash[20];
-        } tests[] = {
-            { "abc",
-                { 0xa9, 0x99, 0x3e, 0x36, 0x47, 0x06, 0x81, 0x6a,
-                0xba, 0x3e, 0x25, 0x71, 0x78, 0x50, 0xc2, 0x6c,
-                0x9c, 0xd0, 0xd8, 0x9d }
-            },
-            { "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
-            { 0x84, 0x98, 0x3E, 0x44, 0x1C, 0x3B, 0xD2, 0x6E,
-                 0xBA, 0xAE, 0x4A, 0xA1, 0xF9, 0x51, 0x29, 0xE5,
-                0xE5, 0x46, 0x70, 0xF1 }
-            },
-             { "The quick brown fox jumps over the lazy dog", //from wiki
-            { 0x2f,0xd4,0xe1,0xc6,0x7a,0x2d,0x28,0xfc,0xed,0x84,0x9e,0xe1,0xbb,0x76,0xe7,0x39,0x1b,0x93,0xeb,0x12 }
-            }
-        };
-
-        int i;
-        unsigned char tmp[20];
-        hash_state md;
-
-        for (i = 0; i < (int)(sizeof(tests) / sizeof(tests[0]));  i++) {
-            sha1_init(&md);
-            sha1_process(&md, (unsigned char*)tests[i].msg, (unsigned long)strlen(tests[i].msg));
-            sha1_done(&md, tmp);
-            if (memcmp(tmp, tests[i].hash, 20) != 0) 
-                return CRYPT_FAIL_TESTVECTOR;
-            else
-                printf("Test %d passed\n",i);
-            
-        }
     }
 
     {
@@ -70,7 +63,7 @@ int main(){
             sha1_process(&md, (unsigned char *)powStr, (unsigned long)strlen(powStr));
             sha1_done(&md, tmp);
 
-            if ( 0==tmp[0] && 0==tmp[1] && 0==tmp[2])
+            if ( verdade(tmp, 0) == 1 )
             {
                 printf("POW done : k = %lu\n",k);
                 for (int i=0;i<20;i++)
@@ -78,9 +71,10 @@ int main(){
                 printf("\n");
                 break;
             }
-            if (k%5000000==0)
+            if (k%5000000 == 0)
                 printf("searching %lu\n",k);
             k++;
         }
     }
+    
 }
