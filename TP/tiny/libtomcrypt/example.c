@@ -3,16 +3,16 @@
 int number = 0;
 //abc
 //a9 99 3e 36 47 6 81 6a ba 3e 25 71 78 50 c2 6c 9c d0 d8 9d
-//0 0 0 54 9f c4 c5 73 39 6b 88 c9 5d 88 5a 53 6b 22 a6 75
+//0  0  0 54 9f c4 c5 73 39 6b 88 c9 5d 88 5a 53 6b 22 a6 75
 int verdade(char *str, int i)
 {
     if(i == number - 1){
-        return true;
+        return 0;
     }   else{
         if( 0 == str[i]){
-            return true && verdade (str, i+1);
+            return 1 + verdade (str, i+1);
         }   else{
-            return false && verdade (str, i+1);
+            return 0 + verdade (str, i+1);
         }
     }
 }
@@ -26,17 +26,6 @@ int main(int argv, char **argc){
     char *buf, *p;
     number = atoi(argc[1]);
     msg = argc[2];
-
-   /* if ((buf = getenv("QUERY_STRING")) != NULL) {
-	    p = strchr(buf, '&');
-	    *p = '\0';              //anular o & dentro do string p -  para aproveitar no strcpy a seguir
-	    strcpy(arg1, buf);
-	    strcpy(arg2, p+1);
-	    number = atoi(arg1);
-        msg = arg2;
-    }
-    */
-
     {
         //simple example
         sha1_init(&md);
@@ -63,7 +52,7 @@ int main(int argv, char **argc){
             sha1_process(&md, (unsigned char *)powStr, (unsigned long)strlen(powStr));
             sha1_done(&md, tmp);
 
-            if ( verdade(tmp, 0) == 1 )
+            if ( verdade(tmp, 0) % number == 1 )
             {
                 printf("POW done : k = %lu\n",k);
                 for (int i=0;i<20;i++)

@@ -14,4 +14,4 @@ example: example.c  $(OBJS)
 	$(CC) $(CFLAGS) -o example example.c sha1.o
 
 clean:
-	rm -f example *~ *.o
+	rm -f *~ *.o
