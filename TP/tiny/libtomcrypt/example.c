@@ -1,16 +1,26 @@
-//abc
-//a9 99 3e 36 47 6 81 6a ba 3e 25 71 78 50 c2 6c 9c d0 d8 9d
-//0  0  0 54 9f c4 c5 73 39 6b 88 c9 5d 88 5a 53 6b 22 a6 75 
 #include <stdio.h>
 #include "tomcrypt_hash.h"
+#include "csapp.h"
 
-int main(int argc, char **argv){
+int main(){
     unsigned char tmp[20];
+    char *buf, *p, n2;
     hash_state md;
     unsigned long k=0;
-    
-    char *powMsg= argv[2];
-    int dif = atoi(argv[1]);
+    char arg1[MAXLINE], arg2[MAXLINE], content[MAXLINE];
+    int n1 = 0;
+
+    if ((buf = getenv("QUERY_STRING")) != NULL) {
+	p = strchr(buf, '&');
+	*p = '\0';
+	strcpy(arg1, buf);
+	strcpy(arg2, p+1);
+	n1 = atoi(arg1);
+	n2 = arg2;
+    }
+
+    char *powMsg= n2;
+    int dif = n1;
     printf("%d\n", dif);
 
     //allocate space for a long integer (10 digits) + 1 for any terminating null character necessary
@@ -24,9 +34,80 @@ int main(int argc, char **argv){
         sha1_process(&md, (unsigned char *)powStr, (unsigned long)strlen(powStr));
         sha1_done(&md, tmp);
 
-        if (0==tmp[0] && 0==tmp[1] && 0==tmp[2])
-        {
-            printf("Hash = %lu\n",k);
+        if(dif == 1){
+            if(0 == tmp[0]){
+                printf("HASH = %lu\n",k);
+                for (int i = 0;i < 20; i++)
+                    printf("%x ", tmp[i]);
+                printf("\n");
+                break;
+            }
+        } else if(dif == 2){
+            if(0 == tmp[0] && 0 == tmp[1]){
+                printf("HASH = %lu\n",k);
+                for (int i = 0;i < 20; i++)
+                    printf("%x ", tmp[i]);
+                printf("\n");
+                break;
+            }
+        } else if(dif == 3){
+            if(0 == tmp[0] && 0 == tmp[1] && 0 == tmp[2]){
+                printf("HASH = %lu\n",k);
+                for (int i = 0;i < 20; i++)
+                    printf("%x ", tmp[i]);
+                printf("\n");
+                break;
+            }
+        } else if(dif == 4){
+            if(0 == tmp[0] && 0 == tmp[1] && 0 == tmp[2] && 0 == tmp[3]){
+                printf("HASH = %lu\n",k);
+                for (int i = 0;i < 20; i++)
+                    printf("%x ", tmp[i]);
+                printf("\n");
+                break;
+            }
+        } else if(dif == 5){
+            if(0 == tmp[0] && 0 == tmp[1] && 0 == tmp[2] && 0 == tmp[3] && 0 == tmp[4]){
+                printf("HASH = %lu\n",k);
+                for (int i = 0;i < 20; i++)
+                    printf("%x ", tmp[i]);
+                printf("\n");
+                break;
+            }
+        } else if(dif == 6){
+            if(0 == tmp[0] && 0 == tmp[1] && 0 == tmp[2] && 0 == tmp[3] && 0 == tmp[4] && 0 == tmp[5]){
+                printf("HASH = %lu\n",k);
+                for (int i = 0;i < 20; i++)
+                    printf("%x ", tmp[i]);
+                printf("\n");
+                break;
+            }
+        } else if(dif == 7){
+            if(0 == tmp[0] && 0 == tmp[1] && 0 == tmp[2] && 0 == tmp[3] && 0 == tmp[4] && 0 == tmp[5] && 0 == tmp[6]){
+                printf("HASH = %lu\n",k);
+                for (int i = 0;i < 20; i++)
+                    printf("%x ", tmp[i]);
+                printf("\n");
+                break;
+            }
+        } else if(dif == 8){
+            if(0 == tmp[0] && 0 == tmp[1] && 0 == tmp[2] && 0 == tmp[3] && 0 == tmp[4] && 0 == tmp[5] && 0 == tmp[6] && 0 == tmp[7]){
+                printf("HASH = %lu\n",k);
+                for (int i = 0;i < 20; i++)
+                    printf("%x ", tmp[i]);
+                printf("\n");
+                break;
+            }
+        } else if(dif == 9){
+            if(0 == tmp[0] && 0 == tmp[1] && 0 == tmp[2] && 0 == tmp[3] && 0 == tmp[4] && 0 == tmp[5] && 0 == tmp[6] && 0 == tmp[7] && 0 == tmp[8]){
+                printf("HASH = %lu\n",k);
+                for (int i = 0;i < 20; i++)
+                    printf("%x ", tmp[i]);
+                printf("\n");
+                break;
+            }
+        } else{
+            printf("HASH = %lu\n",k);
             for (int i = 0;i < 20; i++)
                 printf("%x ", tmp[i]);
             printf("\n");
@@ -34,4 +115,8 @@ int main(int argc, char **argv){
         }
         k++;
     }
+    
+    
+    
 }
+

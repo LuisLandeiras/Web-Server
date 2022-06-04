@@ -18,7 +18,6 @@ int main(void) {
 	n1 = atoi(arg1);
 	n2 = atoi(arg2);
     }
-
     /* Make the response body */
     sprintf(content, "Welcome to add.com: ");
     sprintf(content, "%sTHE Internet addition portal.\r\n<p>", content);
