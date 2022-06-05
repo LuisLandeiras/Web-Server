@@ -8,7 +8,7 @@
  *
  * Tom St Denis, tomstdenis@iahu.ca, http://libtomcrypt.org
  */
-#include "tomcrypt_hash.h"
+#include "../libtomcrypt/tomcrypt_hash.h"
 
 /**
   @file sha1.c

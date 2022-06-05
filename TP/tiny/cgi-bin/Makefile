@@ -14,4 +14,4 @@ adder: adder.c
 proofofwork: proofofwork.c $(OBJS)
 	$(CC) $(CFLAGS) -o proofofwork proofofwork.c sha1.o
 clean:
-	rm -f adder *~
+	rm -f adder proofofwork *.o *~
