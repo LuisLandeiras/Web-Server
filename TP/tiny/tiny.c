@@ -21,12 +21,11 @@ int numeroRequestStat=0;
 
 int main (int argc, char **argv)
 {
-  int listenfd, connfd, port, threads_num, buffer_num;
+  int listenfd, connfd, port, threads_num;
   unsigned int clientlen;	//change to unsigned as sizeof returns unsigned
   struct sockaddr_in clientaddr;
   port = atoi (argv[1]);
   threads_num = atoi(argv[2]);
-  buffer_num = atoi(argv[3]);
 
   /* Check command line args */
   if (argc < 2)
@@ -37,6 +36,7 @@ int main (int argc, char **argv)
   fprintf (stderr, "Server : %s Running on  <%d>\n", argv[0], port);
 
   listenfd = Open_listenfd (port);
+  
   while (1)
   {
     clientlen = sizeof (clientaddr);
